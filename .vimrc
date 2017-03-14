@@ -34,6 +34,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'vim-syntastic/syntastic'
     Plug 'majutsushi/tagbar'
     Plug 'easymotion/vim-easymotion'
+    Plug 'morhetz/gruvbox'
 
     " Omnisharp custom build func
     function! BuildOmniSharp()
@@ -53,6 +54,9 @@ syntax enable
 set guifont=Hack\ 10"
 set fileencodings=utf-8,latin1
 set encoding=utf-8
+set listchars=eol:¬,tab:>·,trail:•,extends:>,precedes:<,space:•
+set list
+set ff=unix
 
 set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
@@ -79,7 +83,9 @@ set foldnestmax=10
 set foldmethod=syntax
 
 " color scheme config
-colorscheme molokai
+set background=dark
+let g:gruvbox_contrast_dark='hard'
+colorscheme gruvbox
 
 " *********************************
 " Plugin configs go here!!
@@ -285,6 +291,7 @@ let g:neocomplete#sources#omni#input_patterns.cs = '.*[^=\);]'
 augroup csharp_dimixar
     autocmd FileType cs set foldmethod=syntax
     autocmd FileType cs set foldlevelstart=5
+    autocmd FileType cs autocmd BufWritePre <buffer> %s/\s\+$//e
 augroup END
 
 " *********************************
