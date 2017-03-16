@@ -35,6 +35,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'majutsushi/tagbar'
     Plug 'easymotion/vim-easymotion'
     Plug 'morhetz/gruvbox'
+    Plug 'honza/vim-snippets'
 
     " Omnisharp custom build func
     function! BuildOmniSharp()
@@ -51,7 +52,16 @@ call plug#end()
 " General configs goes here!!
 filetype plugin indent on
 syntax enable
-set guifont=Hack\ 10"
+if has("unix")
+    let s:uname = system("uname -s")
+    if s:uname == "Darwin\n"
+        set guifont=Hack\ Regular:h11"
+    else
+        set guifont=Hack\ 10
+    endif
+else
+    set guifont=Hack:h10
+endif
 set fileencodings=utf-8,latin1
 set encoding=utf-8
 set listchars=eol:¬,tab:>·,trail:•,extends:>,precedes:<,space:•
@@ -82,11 +92,16 @@ set foldlevelstart=0
 set foldnestmax=10
 set foldmethod=syntax
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 "set autochdir
 
 >>>>>>> Stashed changes
+=======
+set autochdir
+
+>>>>>>> f52d66ec0a003a37a134d4ffd8f20593520693e1
 " color scheme config
 set background=dark
 let g:gruvbox_contrast_dark='hard'
@@ -147,6 +162,7 @@ set noshowmatch
 "don't autoselect first item in omnicomplete, show if only one item (for preview)
 "remove preview if you don't want to see any documentation whatsoever.
 set completeopt=longest,menuone
+set completeopt-=preview
 "Move the preview window (code documentation) to the bottom of the screen, so it doesn't move the code!
 "You might also want to look at the echodoc plugin
 set splitbelow
@@ -329,6 +345,10 @@ nmap <leader>wj <C-w>j
 nmap <leader>wk <C-w>k
 nmap <leader>wh <C-w>h
 nmap <leader>wl <C-w>l
+nmap <leader>wJ <C-w>J
+nmap <leader>wK <C-w>K
+nmap <leader>wH <C-w>H
+nmap <leader>wL <C-w>L
 nmap <leader>w/ <C-w>v
 nmap <leader>ws <C-w>s
 nmap <leader>wd :hide<CR>
@@ -341,6 +361,7 @@ nmap <leader>qQ :qa!<CR>
 
 " Unite mappings
 nmap <leader>ubl :Unite buffer<CR>i
+nmap <leader>upf :Unite file_rec/async:!<CR>i
 
 " Git mappings
 nmap <leader>gs :Gstatus<CR>
