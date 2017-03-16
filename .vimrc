@@ -37,7 +37,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'morhetz/gruvbox'
     Plug 'honza/vim-snippets'
 
-    "Plug 'omnisharp/omnisharp-vim', {'do': BuildOmniSharp()}
+    Plug 'omnisharp/omnisharp-vim'
     Plug 'OrangeT/vim-csharp'
     Plug 'Valloric/YouCompleteMe', {'do': 'python3 install.py --all'}
 
@@ -139,14 +139,19 @@ if has("persistent_undo")
     set undofile
 endif
 
-" Omnisharp config
+" OmniSharp config
 let g:OmniSharp_selector_ui = 'unite'
+let g:Omnisharp_start_server = 0
+let g:Omnisharp_stop_server = 0
+let g:OmniSharp_host = "http://localhost:64615"
+
 
 " YouCompleteMe config
 let g:ycm_error_symbol = '^^'
 let g:ycm_warning_symbol = '!!'
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_csharp_server_port = 64615
 
 " *********************************
 " All Language settings start here
@@ -228,7 +233,7 @@ vmap <leader>ssm :call SwoopMultiSelection()<CR>
 "nmap <leader>mss :OmniSharpStartServer<CR>
 "nmap <leader>msp :OmniSharpStopServer<CR>
 
-"YouCompleteMe mappings
+"YouCompleteMe/OmniSharp mappings
 nmap <leader>mgd :YcmCompleter GoToDefinition<CR>
 nmap <leader>mgi :YcmCompleter GoToInclude<CR>
 nmap <leader>mgde :YcmCompleter GoToDeclaration<CR>
@@ -244,4 +249,12 @@ nmap <leader>msr :YcmCompleter ReloadSolution<CR>
 nmap <leader>mgse :call youcompleteme#GetErrorCount()<CR>
 nmap <leader>mgsw :call youcompleteme#GetWarningCount()<CR>
 
+augroup omnisharp_commands
+    autocmd!
+    autocmd FileType cs nnoremap <leader>mrr :OmniSharpRename<CR>
+    autocmd FileType cs nnoremap <leader>mcf :OmniSharpCodeFormat<CR>
+    autocmd FileType cs nnoremap <leader>mfu :OmniSharpFindUsages<CR>
+
+    autocmd CursorHold *.cs call OmniSharp#TypeLookupWithoutDocumentation()
+augroup END
 
