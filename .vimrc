@@ -7,7 +7,7 @@ if &compatible
   set nocompatible
 endif
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.local/share/nvim/plugged')
 
     Plug 'mhinz/vim-startify'
     Plug 'shougo/unite.vim'
