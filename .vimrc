@@ -92,16 +92,6 @@ set foldlevelstart=0
 set foldnestmax=10
 set foldmethod=syntax
 
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
-"set autochdir
-
->>>>>>> Stashed changes
-=======
-set autochdir
-
->>>>>>> f52d66ec0a003a37a134d4ffd8f20593520693e1
 " color scheme config
 set background=dark
 let g:gruvbox_contrast_dark='hard'
