@@ -145,6 +145,8 @@ let g:OmniSharp_selector_ui = 'unite'
 " YouCompleteMe config
 let g:ycm_error_symbol = '^^'
 let g:ycm_warning_symbol = '!!'
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
 
 " *********************************
 " All Language settings start here
