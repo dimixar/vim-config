@@ -10,7 +10,7 @@ endif
 call plug#begin('~/.local/share/nvim/plugged')
 
     Plug 'mhinz/vim-startify'
-    Plug 'shougo/unite.vim'
+    "Plug 'shougo/unite.vim'
     Plug 'Shougo/denite.nvim'
     Plug 'scrooloose/nerdtree'
     Plug 'scrooloose/nerdcommenter'
@@ -37,9 +37,13 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'morhetz/gruvbox'
     Plug 'honza/vim-snippets'
 
-    Plug 'omnisharp/omnisharp-vim'
+    Plug 'omnisharp/omnisharp-vim', { 'do': 'cd server && xbuild' }
     Plug 'OrangeT/vim-csharp'
-    Plug 'Valloric/YouCompleteMe', {'do': 'python3 install.py --all'}
+    "Plug 'Valloric/YouCompleteMe', {'do': 'python3 install.py --all'}
+    Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
+    Plug 'Robzz/deoplete-omnisharp'
+    Plug 'ervandew/supertab'
+    Plug 'idanarye/vim-merginal'
 
 call plug#end()
 
@@ -141,17 +145,19 @@ endif
 
 " OmniSharp config
 let g:OmniSharp_selector_ui = 'unite'
-let g:Omnisharp_start_server = 0
-let g:Omnisharp_stop_server = 0
-let g:OmniSharp_host = "http://localhost:64615"
+set splitbelow
+let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues']
+set completeopt=longest,menuone,preview
 
+" deoplete config
+let g:deoplete#enable_at_startup = 1
 
-" YouCompleteMe config
-let g:ycm_error_symbol = '^^'
-let g:ycm_warning_symbol = '!!'
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_csharp_server_port = 64615
+"Super tab settings - uncomment the next 4 lines
+let g:SuperTabDefaultCompletionType = 'context'
+let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
+let g:SuperTabDefaultCompletionTypeDiscovery = ["&omnifunc:<c-x><c-o>","&completefunc:<c-x><c-n>"]
+let g:SuperTabClosePreviewOnPopupClose = 1
+
 
 " *********************************
 " All Language settings start here
@@ -206,14 +212,18 @@ nmap <leader>wn <C-w>w
 nmap <leader>qq :qa<CR>
 nmap <leader>qQ :qa!<CR>
 
-" Unite mappings
-nmap <leader>ubl :Unite buffer<CR>i
-nmap <leader>upf :Unite file_rec/async:!<CR>i
+" Denite mappings
+nmap <leader>ubl :Denite buffer<CR>
+nmap <leader>upf :DeniteProjectDir file_rec<CR>
+nmap <leader>uml :Denite file_rec buffer<CR>
 
 " Git mappings
 nmap <leader>gs :Gstatus<CR>
 nmap <leader>gc :Gcommit<CR>
+nmap <leader>gp :Gpush 
+nmap <leader>gP :Gpull<CR>
 nmap <leader>gl :GV<CR>
+nmap <leader>gb :MerginalToggle<CR>
 
 " Vim swoop config
 let g:swoopUseDefaultKeyMap = 0
@@ -222,39 +232,48 @@ vmap <leader>ss :call SwoopSelection()<CR>
 nmap <leader>ssm :call SwoopMulti()<CR>
 vmap <leader>ssm :call SwoopMultiSelection()<CR>
 
-" Omnisharp mappings
-"nmap <leader>ma :OmniSharpGetCodeActions<CR>
-"vmap <leader>ma :call OmniSharp#GetCodeActions('visual')<CR>
-"nmap <leader>mr :OmniSharpRename<CR>
-" rename without dialog - with cursor on the symbol to rename... ':Rename newname'
-"command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
-"nmap <leader>mrl :OmniSharpReloadSolution<CR>
-"nmap <leader>mcf :OmniSharpCodeFormat<CR>
-"nmap <leader>mss :OmniSharpStartServer<CR>
-"nmap <leader>msp :OmniSharpStopServer<CR>
-
-"YouCompleteMe/OmniSharp mappings
-nmap <leader>mgd :YcmCompleter GoToDefinition<CR>
-nmap <leader>mgi :YcmCompleter GoToInclude<CR>
-nmap <leader>mgde :YcmCompleter GoToDeclaration<CR>
-nmap <leader>mfu :YcmCompleter GoToReferences<CR>
-nmap <leader>mfi :YcmCompleter GoToImplementation<CR>
-nmap <leader>mft :YcmCompleter GetType<CR>
-nmap <leader>mfp :YcmCompleter GetParent<CR>
-nmap <leader>mfd :YcmCompleter GetDoc<CR>
-nmap <leader>mrf :YcmCompleter FixIt<CR>
-nmap <leader>mrr :YcmCompleter RefactorRename 
-nmap <leader>mss :YcmCompleter RestartServer<CR>
-nmap <leader>msr :YcmCompleter ReloadSolution<CR>
-nmap <leader>mgse :call youcompleteme#GetErrorCount()<CR>
-nmap <leader>mgsw :call youcompleteme#GetWarningCount()<CR>
 
 augroup omnisharp_commands
     autocmd!
+
+    "Set autocomplete function to OmniSharp (if not using YouCompleteMe completion plugin)
+    autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
+
+    " Synchronous build (blocks Vim)
+    "autocmd FileType cs nnoremap <F5> :wa!<cr>:OmniSharpBuild<cr>
+    " Builds can also run asynchronously with vim-dispatch installed
+    autocmd FileType cs nnoremap <leader>mb :wa!<cr>:OmniSharpBuildAsync<cr>
+    " automatic syntax check on events (TextChanged requires Vim 7.4)
+    autocmd BufEnter,TextChanged,InsertLeave *.cs SyntasticCheck
+
+    " Automatically add new cs files to the nearest project on save
+    autocmd BufWritePost *.cs call OmniSharp#AddToProject()
+
+    "show type information automatically when the cursor stops moving
+    autocmd CursorHold *.cs call OmniSharp#TypeLookupWithoutDocumentation()
+
+    "The following commands are contextual, based on the current cursor position.
+
+    autocmd FileType cs nnoremap gd :OmniSharpGotoDefinition<cr>
+    autocmd FileType cs nnoremap <leader>mfi :OmniSharpFindImplementations<cr>
+    autocmd FileType cs nnoremap <leader>mft :OmniSharpFindType<cr>
+    autocmd FileType cs nnoremap <leader>mfs :OmniSharpFindSymbol<cr>
+    autocmd FileType cs nnoremap <leader>mfu :OmniSharpFindUsages<cr>
+    "finds members in the current buffer
+    autocmd FileType cs nnoremap <leader>mfm :OmniSharpFindMembers<cr>
+    " cursor can be anywhere on the line containing an issue
+    autocmd FileType cs nnoremap <leader>mx  :OmniSharpFixIssue<cr>
+    autocmd FileType cs nnoremap <leader>mfx :OmniSharpFixUsings<cr>
+    autocmd FileType cs nnoremap <leader>mtt :OmniSharpTypeLookup<cr>
+    autocmd FileType cs nnoremap <leader>mdc :OmniSharpDocumentation<cr>
+    "navigate up by method/property/field
+    autocmd FileType cs nnoremap <C-K> :OmniSharpNavigateUp<cr>
+    "navigate down by method/property/field
+    autocmd FileType cs nnoremap <C-J> :OmniSharpNavigateDown<cr>
+
     autocmd FileType cs nnoremap <leader>mrr :OmniSharpRename<CR>
     autocmd FileType cs nnoremap <leader>mcf :OmniSharpCodeFormat<CR>
-    autocmd FileType cs nnoremap <leader>mfu :OmniSharpFindUsages<CR>
+    autocmd FileType cs nnoremap <leader>mss :OmniSharpStartServer<cr>
+    autocmd FileType cs nnoremap <leader>msp :OmniSharpStopServer<cr>
 
-    autocmd CursorHold *.cs call OmniSharp#TypeLookupWithoutDocumentation()
 augroup END
-
