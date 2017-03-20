@@ -14,34 +14,34 @@ Before cloning this repository, you'll have to install Vim-Plug: https://github.
 5. Call the command ":UpdateRemotePlugins"
 
 # List of plugins used so far.
-https://github.com/mhinz/vim-startify
-https://github.com/Shougo/denite.nvim
-https://github.com/scrooloose/nerdtree
-https://github.com/scrooloose/nerdcommenter
-https://github.com/tpope/vim-surround
-https://github.com/vim-airline/vim-airline
-https://github.com/vim-airline/vim-airline-themes
-https://github.com/tomasr/molokai
-https://github.com/tpope/vim-fugitive
-https://github.com/mhinz/vim-signify
-https://github.com/airblade/vim-gitgutter
-https://github.com/Raimondi/delimitMate
-https://github.com/sheerun/vim-polyglot
-https://github.com/tpope/vim-sensible
-https://github.com/pelodelfuego/vim-swoop
-https://github.com/junegunn/gv.vim
-https://github.com/mbbill/undotree
-https://github.com/shougo/vimproc.vim
-https://github.com/tpope/vim-dispatch
-https://github.com/SirVer/ultisnips
-https://github.com/vim-syntastic/syntastic
-https://github.com/majutsushi/tagbar
-https://github.com/easymotion/vim-easymotion
-https://github.com/morhetz/gruvbox
-https://github.com/honza/vim-snippets
-https://github.com/omnisharp/omnisharp-vim
-https://github.com/OrangeT/vim-csharp
-https://github.com/Shougo/deoplete.nvim
-https://github.com/Robzz/deoplete-omnisharp
-https://github.com/ervandew/supertab
-https://github.com/idanarye/vim-merginal
+1. https://github.com/mhinz/vim-startify
+2. https://github.com/Shougo/denite.nvim
+3. https://github.com/scrooloose/nerdtree
+4. https://github.com/scrooloose/nerdcommenter
+5. https://github.com/tpope/vim-surround
+6. https://github.com/vim-airline/vim-airline
+7. https://github.com/vim-airline/vim-airline-themes
+8. https://github.com/tomasr/molokai
+9. https://github.com/tpope/vim-fugitive
+10. https://github.com/mhinz/vim-signify
+11. https://github.com/airblade/vim-gitgutter
+12. https://github.com/Raimondi/delimitMate
+13. https://github.com/sheerun/vim-polyglot
+14. https://github.com/tpope/vim-sensible
+15. https://github.com/pelodelfuego/vim-swoop
+16. https://github.com/junegunn/gv.vim
+17. https://github.com/mbbill/undotree
+18. https://github.com/shougo/vimproc.vim
+19. https://github.com/tpope/vim-dispatch
+20. https://github.com/SirVer/ultisnips
+21. https://github.com/vim-syntastic/syntastic
+22. https://github.com/majutsushi/tagbar
+23. https://github.com/easymotion/vim-easymotion
+24. https://github.com/morhetz/gruvbox
+25. https://github.com/honza/vim-snippets
+26. https://github.com/omnisharp/omnisharp-vim
+27. https://github.com/OrangeT/vim-csharp
+28. https://github.com/Shougo/deoplete.nvim
+29. https://github.com/Robzz/deoplete-omnisharp
+30. https://github.com/ervandew/supertab
+31. https://github.com/idanarye/vim-merginal
