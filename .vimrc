@@ -253,7 +253,7 @@ augroup omnisharp_commands
 
     "The following commands are contextual, based on the current cursor position.
 
-    autocmd FileType cs nnoremap gd :OmniSharpGotoDefinition<cr>
+    autocmd FileType cs nnoremap <leader>mgd :OmniSharpGotoDefinition<cr>
     autocmd FileType cs nnoremap <leader>mfi :OmniSharpFindImplementations<cr>
     autocmd FileType cs nnoremap <leader>mft :OmniSharpFindType<cr>
     autocmd FileType cs nnoremap <leader>mfs :OmniSharpFindSymbol<cr>
