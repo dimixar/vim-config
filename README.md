@@ -1,19 +1,21 @@
 # vim-config
 Here is my neovim config, with C# support. Works with Unity3D also.
 
+#### !!!Tested Only on OSX & Linux!!!
+
 Works best with neovim-qt.
 
-# Necessary dependencies
+### Necessary dependencies
 Before cloning this repository, you'll have to install Vim-Plug: https://github.com/junegunn/vim-plug
 
-# How to make it work
+### How to make it work
 1. Clone this repository into your .config/nvim/ folder.
 2. Open neovim
 3. Install all plugins with ":PlugInstall"
 4. Restart neovim
 5. Call the command ":UpdateRemotePlugins"
 
-# List of plugins used so far.
+### List of plugins used so far.
 1. https://github.com/mhinz/vim-startify
 2. https://github.com/Shougo/denite.nvim
 3. https://github.com/scrooloose/nerdtree
