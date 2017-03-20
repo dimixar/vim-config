@@ -55,7 +55,7 @@ if has("unix")
         set guifont=Hack\ Regular:h11"
     else
         set guifont=Hack\ 10
-        Guifont Hack:h11
+        GuiFont Hack:h10
     endif
 else
     set guifont=Hack:h10
