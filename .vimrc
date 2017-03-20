@@ -10,7 +10,6 @@ endif
 call plug#begin('~/.local/share/nvim/plugged')
 
     Plug 'mhinz/vim-startify'
-    "Plug 'shougo/unite.vim'
     Plug 'Shougo/denite.nvim'
     Plug 'scrooloose/nerdtree'
     Plug 'scrooloose/nerdcommenter'
@@ -30,7 +29,6 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'shougo/vimproc.vim', {'do': 'make'}
     Plug 'tpope/vim-dispatch'
     Plug 'SirVer/ultisnips'
-    "Plug 'Shougo/neocomplete.vim'
     Plug 'vim-syntastic/syntastic'
     Plug 'majutsushi/tagbar'
     Plug 'easymotion/vim-easymotion'
@@ -39,7 +37,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 
     Plug 'omnisharp/omnisharp-vim', { 'do': 'cd server && xbuild' }
     Plug 'OrangeT/vim-csharp'
-    "Plug 'Valloric/YouCompleteMe', {'do': 'python3 install.py --all'}
     Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
     Plug 'Robzz/deoplete-omnisharp'
     Plug 'ervandew/supertab'
@@ -58,6 +55,7 @@ if has("unix")
         set guifont=Hack\ Regular:h11"
     else
         set guifont=Hack\ 10
+        Guifont Hack:h11
     endif
 else
     set guifont=Hack:h10
