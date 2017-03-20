@@ -86,6 +86,7 @@ set showcmd
 set cursorline
 set wildmenu
 set showmatch
+set lazyredraw
 
 set foldenable
 set foldlevelstart=0
@@ -178,7 +179,7 @@ vnoremap <leader>y "+y
 
 " Folding shortcuts
 " Toggle fold
-nmap <leader>eft za 
+nmap <leader>eft za
 " Open All folds
 nmap <leader>efO zR
 " Close all folds
@@ -189,7 +190,7 @@ nmap <leader>fs :w<CR>:echo "saved file!!!"<CR>
 
 " buffer shortcuts
 nmap <leader>bd :bd<CR>:echo "Buffer Killed!!!"<CR>
-nmap <leader>bdd :bd!<CR>:echo "Buffer Murdered!!!"
+nmap <leader>bdd :bd!<CR>:echo "Buffer Murdered!!!"<CR>
 " startify buffer shortcut
 nmap <leader>bs :Startify<CR>
 
@@ -220,7 +221,7 @@ nmap <leader>uml :Denite file_rec buffer<CR>
 " Git mappings
 nmap <leader>gs :Gstatus<CR>
 nmap <leader>gc :Gcommit<CR>
-nmap <leader>gp :Gpush 
+nmap <leader>gp :Gpush
 nmap <leader>gP :Gpull<CR>
 nmap <leader>gl :GV<CR>
 nmap <leader>gb :MerginalToggle<CR>
