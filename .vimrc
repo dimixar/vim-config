@@ -49,13 +49,13 @@ call plug#end()
 " General configs goes here!!
 filetype plugin indent on
 syntax enable
+GuiFont Hack:h10
 if has("unix")
     let s:uname = system("uname -s")
     if s:uname == "Darwin\n"
         set guifont=Hack\ Regular:h11"
     else
         set guifont=Hack\ 10
-        GuiFont Hack:h10
     endif
 else
     set guifont=Hack:h10
