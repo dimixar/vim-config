@@ -16,7 +16,6 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'tpope/vim-surround'
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
-    Plug 'tomasr/molokai'
     Plug 'tpope/vim-fugitive'
     Plug 'mhinz/vim-signify'
     Plug 'airblade/vim-gitgutter'
@@ -92,6 +91,10 @@ set foldnestmax=10
 set foldmethod=syntax
 
 " color scheme config
+if (has("nvim"))
+    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
 set background=dark
 let g:gruvbox_contrast_dark='hard'
 colorscheme gruvbox
