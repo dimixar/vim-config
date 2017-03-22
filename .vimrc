@@ -149,6 +149,8 @@ endif
 let g:OmniSharp_selector_ui = 'unite'
 set splitbelow
 let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues']
+let g:syntastic_error_symbol='✗'
+let g:syntastic_warning_symbol='!'
 set completeopt=longest,menuone,preview
 
 " deoplete config
