@@ -11,6 +11,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 
     Plug 'mhinz/vim-startify'
     Plug 'Shougo/denite.nvim'
+    Plug 'Shougo/unite.vim'
     Plug 'scrooloose/nerdtree'
     Plug 'scrooloose/nerdcommenter'
     Plug 'tpope/vim-surround'
@@ -40,6 +41,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'Robzz/deoplete-omnisharp'
     Plug 'ervandew/supertab'
     Plug 'idanarye/vim-merginal'
+    Plug 'randomize/switch.vim'
 
 call plug#end()
 
@@ -139,6 +141,24 @@ let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 
+"Switch config
+let g:switch_mapping = ""
+let g:switch_find_fallback_match_cursor_right = 1
+let g:switch_find_fallback_match_line_start = 1
+
+autocmd FileType cs let b:switch_custom_definitions =
+    \ [
+    \   [  '+=' , '-='  ],
+    \   [  'private' , 'public', 'protected'  ],
+    \   [  'struct' , 'class'  ],
+    \   [  'OnDisable()' , 'OnEnable()' ],
+    \   [  'Update()' , 'FixedUpdate()' ],
+    \   [  'Debug.Log(' , 'Debug.LogFormat('],
+    \   [  'Debug.LogError(', 'Debug.LogErrorFormat(' ],
+    \   [  'Debug.LogWarning(', 'Debug.LogWarningFormat(' ]
+    \ ]
+"
+
 " Undotree config
 if has("persistent_undo")
     set undodir=~/.undodir/
@@ -236,7 +256,7 @@ vmap <leader>ss :call SwoopSelection()<CR>
 nmap <leader>ssm :call SwoopMulti()<CR>
 vmap <leader>ssm :call SwoopMultiSelection()<CR>
 
-
+" Omnisharp mappings
 augroup omnisharp_commands
     autocmd!
 
@@ -281,3 +301,6 @@ augroup omnisharp_commands
     autocmd FileType cs nnoremap <leader>msp :OmniSharpStopServer<cr>
 
 augroup END
+
+" Switch mapping
+nmap <leader>sw :Switch<CR>
