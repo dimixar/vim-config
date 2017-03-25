@@ -43,6 +43,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
 
+    Plug 'hoelzro/vim-split-navigate'
+
 call plug#end()
 
 
@@ -103,6 +105,13 @@ colorscheme gruvbox
 
 " *********************************
 " Plugin configs go here!!
+
+" Split navigate config
+let g:splitnavigate_start_key = "<leader><leader><leader>"
+"default white on blue
+highlight default TopHighlight term=bold ctermfg=252 ctermbg=18 guifg=fg guibg=#000080
+" default yellow on red
+highlight default BottomHighlight term=standout ctermfg=186 ctermbg=88 guifg=#d0d090 guibg=#800000
 
 " airline config
 set laststatus=2

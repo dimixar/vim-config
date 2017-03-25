@@ -1,5 +1,7 @@
 plugged/
 session/
 sessions/
+tags/
 
 *.swp
+tags
