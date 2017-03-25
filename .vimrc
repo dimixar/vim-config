@@ -10,8 +10,6 @@ endif
 call plug#begin('~/.local/share/nvim/plugged')
 
     Plug 'mhinz/vim-startify'
-    Plug 'Shougo/denite.nvim'
-    Plug 'Shougo/unite.vim'
     Plug 'scrooloose/nerdtree'
     Plug 'scrooloose/nerdcommenter'
     Plug 'tpope/vim-surround'
@@ -42,6 +40,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'ervandew/supertab'
     Plug 'idanarye/vim-merginal'
     Plug 'randomize/switch.vim'
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf.vim'
 
 call plug#end()
 
@@ -166,7 +166,7 @@ if has("persistent_undo")
 endif
 
 " OmniSharp config
-let g:OmniSharp_selector_ui = 'unite'
+let g:OmniSharp_selector_ui = 'fzf'
 set splitbelow
 let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues']
 let g:syntastic_error_symbol='✗'
@@ -236,10 +236,14 @@ nmap <leader>wn <C-w>w
 nmap <leader>qq :qa<CR>
 nmap <leader>qQ :qa!<CR>
 
-" Denite mappings
-nmap <leader>ubl :Denite buffer<CR>
-nmap <leader>upf :DeniteProjectDir file_rec<CR>
-nmap <leader>uml :Denite file_rec buffer<CR>
+" fzf mappings
+nmap <leader>uff :GFiles<CR>
+nmap <leader>ufb :Buffers<CR>
+nmap <leader>ufw :Windows<CR>
+nmap <leader>ufo :BTags<CR>
+nmap <leader>uft :Tags<CR>
+nmap <leader>ufl :BLines<CR>
+nmap <leader>ufs :Snippets<CR>
 
 " Git mappings
 nmap <leader>gs :Gstatus<CR>
