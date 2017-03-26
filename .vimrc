@@ -20,14 +20,12 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'airblade/vim-gitgutter'
     Plug 'Raimondi/delimitMate'
     Plug 'sheerun/vim-polyglot'
-    Plug 'tpope/vim-sensible'
     Plug 'pelodelfuego/vim-swoop'
     Plug 'junegunn/gv.vim'
     Plug 'mbbill/undotree'
     Plug 'shougo/vimproc.vim', {'do': 'make'}
     Plug 'tpope/vim-dispatch'
     Plug 'SirVer/ultisnips'
-    Plug 'vim-syntastic/syntastic'
     Plug 'majutsushi/tagbar'
     Plug 'easymotion/vim-easymotion'
     Plug 'morhetz/gruvbox'
@@ -44,6 +42,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'junegunn/fzf.vim'
 
     Plug 'hoelzro/vim-split-navigate'
+    Plug 'ryanoasis/vim-devicons'
+    Plug 'w0rp/ale'
 
 call plug#end()
 
@@ -52,7 +52,7 @@ call plug#end()
 " General configs goes here!!
 filetype plugin indent on
 syntax enable
-GuiFont Hack:h10
+"GuiFont Hack:h10
 if has("unix")
     let s:uname = system("uname -s")
     if s:uname == "Darwin\n"
@@ -65,7 +65,7 @@ else
 endif
 set fileencodings=utf-8,latin1
 set encoding=utf-8
-set listchars=eol:¬,tab:>·,trail:•,extends:>,precedes:<,space:•
+set listchars=eol:¬,tab:>·,trail:•,extends:>,precedes:<
 set list
 set ff=unix
 
@@ -105,6 +105,12 @@ colorscheme gruvbox
 
 " *********************************
 " Plugin configs go here!!
+
+" Ale config
+let g:ale_sign_column_always = 1
+let g:ale_sign_error = 'E'
+let g:ale_sign_warning = 'W'
+
 
 " Split navigate config
 let g:splitnavigate_start_key = "<leader><leader><leader>"
@@ -177,9 +183,6 @@ endif
 " OmniSharp config
 let g:OmniSharp_selector_ui = 'fzf'
 set splitbelow
-let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues']
-let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol='!'
 set completeopt=longest,menuone,preview
 
 " deoplete config
@@ -281,7 +284,7 @@ augroup omnisharp_commands
     " Builds can also run asynchronously with vim-dispatch installed
     autocmd FileType cs nnoremap <leader>mb :wa!<cr>:OmniSharpBuildAsync<cr>
     " automatic syntax check on events (TextChanged requires Vim 7.4)
-    autocmd BufEnter,TextChanged,InsertLeave *.cs SyntasticCheck
+    "autocmd BufEnter,TextChanged,InsertLeave *.cs Neomake
 
     " Automatically add new cs files to the nearest project on save
     autocmd BufWritePost *.cs call OmniSharp#AddToProject()
