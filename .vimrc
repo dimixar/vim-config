@@ -52,7 +52,6 @@ call plug#end()
 " General configs goes here!!
 filetype plugin indent on
 syntax enable
-"GuiFont Hack:h10
 if has("unix")
     let s:uname = system("uname -s")
     if s:uname == "Darwin\n"
@@ -65,7 +64,7 @@ else
 endif
 set fileencodings=utf-8,latin1
 set encoding=utf-8
-set listchars=eol:¬,tab:>·,trail:•,extends:>,precedes:<
+set listchars=tab:>·,trail:•
 set list
 set ff=unix
 
