@@ -34,7 +34,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'omnisharp/omnisharp-vim', { 'do': 'cd server && xbuild' }
     Plug 'OrangeT/vim-csharp'
     Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
-    Plug 'Robzz/deoplete-omnisharp'
+    "Plug 'Robzz/deoplete-omnisharp'
+    Plug 'dimixar/deoplete-omnisharp'
     Plug 'ervandew/supertab'
     Plug 'idanarye/vim-merginal'
     Plug 'randomize/switch.vim'
@@ -52,6 +53,7 @@ call plug#end()
 " General configs goes here!!
 filetype plugin indent on
 syntax enable
+set termguicolors
 if has("unix")
     let s:uname = system("uname -s")
     if s:uname == "Darwin\n"
@@ -87,6 +89,7 @@ set cursorline
 set wildmenu
 set showmatch
 set lazyredraw
+set ignorecase
 
 set foldenable
 set foldlevelstart=0
@@ -94,10 +97,6 @@ set foldnestmax=10
 set foldmethod=syntax
 
 " color scheme config
-if (has("nvim"))
-    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-endif
 set background=dark
 let g:gruvbox_contrast_dark='hard'
 colorscheme gruvbox
@@ -128,32 +127,32 @@ let g:airline#extensions#branch#enabled=1
 let g:airline_section_c = 'WN: %{winnr()}'
 let g:airline_section_y = 'BN: %{bufnr("%")} %{&encoding}'
 let g:airline_powerline_fonts = 1
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
+"if !exists('g:airline_symbols')
+    "let g:airline_symbols = {}
+"endif
 
-" unicode symbols
-let g:airline_left_sep = '»'
-let g:airline_left_sep = '▶'
-let g:airline_right_sep = '«'
-let g:airline_right_sep = '◀'
-let g:airline_symbols.linenr = '␊'
-let g:airline_symbols.linenr = '␤'
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.paste = 'Þ'
-let g:airline_symbols.paste = '∥'
-let g:airline_symbols.whitespace = 'Ξ'
+"" unicode symbols
+"let g:airline_left_sep = '»'
+"let g:airline_left_sep = '▶'
+"let g:airline_right_sep = '«'
+"let g:airline_right_sep = '◀'
+"let g:airline_symbols.linenr = '␊'
+"let g:airline_symbols.linenr = '␤'
+"let g:airline_symbols.linenr = '¶'
+"let g:airline_symbols.branch = '⎇'
+"let g:airline_symbols.paste = 'ρ'
+"let g:airline_symbols.paste = 'Þ'
+"let g:airline_symbols.paste = '∥'
+"let g:airline_symbols.whitespace = 'Ξ'
 
-" airline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
+"" airline symbols
+"let g:airline_left_sep = ''
+"let g:airline_left_alt_sep = ''
+"let g:airline_right_sep = ''
+"let g:airline_right_alt_sep = ''
+"let g:airline_symbols.branch = ''
+"let g:airline_symbols.readonly = ''
+"let g:airline_symbols.linenr = ''
 
 "Switch config
 let g:switch_mapping = ""
@@ -181,11 +180,17 @@ endif
 
 " OmniSharp config
 let g:OmniSharp_selector_ui = 'fzf'
+let g:OmniSharp_want_snippet=1
 set splitbelow
 set completeopt=longest,menuone,preview
 
 " deoplete config
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#max_menu_width = 1000
+let g:deoplete#auto_complete_start_length = 1
+call deoplete#custom#set('ultisnips', 'matchers', ['matcher_fuzzy'])
+call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
+autocmd CompleteDone * pclose!
 
 "Super tab settings - uncomment the next 4 lines
 let g:SuperTabDefaultCompletionType = 'context'
@@ -319,3 +324,8 @@ augroup END
 
 " Switch mapping
 nmap <leader>sw :Switch<CR>
+
+"Ultisnips mappings
+let g:UltiSnipsExpandTrigger="<c-x><c-u>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
