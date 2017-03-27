@@ -34,7 +34,6 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'omnisharp/omnisharp-vim', { 'do': 'cd server && xbuild' }
     Plug 'OrangeT/vim-csharp'
     Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
-    "Plug 'Robzz/deoplete-omnisharp'
     Plug 'dimixar/deoplete-omnisharp'
     Plug 'ervandew/supertab'
     Plug 'idanarye/vim-merginal'
@@ -45,6 +44,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'hoelzro/vim-split-navigate'
     Plug 'ryanoasis/vim-devicons'
     Plug 'w0rp/ale'
+    Plug 'zchee/deoplete-jedi'
 
 call plug#end()
 
@@ -182,7 +182,7 @@ endif
 let g:OmniSharp_selector_ui = 'fzf'
 let g:OmniSharp_want_snippet=1
 set splitbelow
-set completeopt=longest,menuone,preview
+set completeopt=longest,menuone
 
 " deoplete config
 let g:deoplete#enable_at_startup = 1
@@ -326,6 +326,6 @@ augroup END
 nmap <leader>sw :Switch<CR>
 
 "Ultisnips mappings
-let g:UltiSnipsExpandTrigger="<c-x><c-u>"
+let g:UltiSnipsExpandTrigger="<c-x><c-x>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
