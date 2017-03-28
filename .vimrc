@@ -46,6 +46,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'w0rp/ale'
     Plug 'zchee/deoplete-jedi'
 
+    Plug 'simeji/winresizer'
+
 call plug#end()
 
 
@@ -329,3 +331,6 @@ nmap <leader>sw :Switch<CR>
 let g:UltiSnipsExpandTrigger="<c-x><c-x>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+"winresizer mapping
+let g:winresizer_start_key = '<leader>wr'
