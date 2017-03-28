@@ -34,7 +34,7 @@ Before cloning this repository, you'll have to install Vim-Plug: https://github.
 16. https://github.com/shougo/vimproc.vim
 17. https://github.com/tpope/vim-dispatch
 18. https://github.com/SirVer/ultisnips
-19. https://github.com/vim-syntastic/syntastic
+19. https://github.com/w0rp/ale
 20. https://github.com/majutsushi/tagbar
 21. https://github.com/easymotion/vim-easymotion
 22. https://github.com/morhetz/gruvbox
@@ -42,9 +42,12 @@ Before cloning this repository, you'll have to install Vim-Plug: https://github.
 24. https://github.com/omnisharp/omnisharp-vim
 25. https://github.com/OrangeT/vim-csharp
 26. https://github.com/Shougo/deoplete.nvim
-27. https://github.com/Robzz/deoplete-omnisharp
+27. https://github.com/dimixar/deoplete-omnisharp
 28. https://github.com/ervandew/supertab
 29. https://github.com/idanarye/vim-merginal
 30. https://github.com/hoelzro/vim-split-navigate
 31. https://github.com/junegunn/fzf.vim
 32. https://github.com/randomize/switch.vim
+33. https://github.com/ryanoasis/vim-devicons
+34. https://github.com/zchee/deoplete-jedi
+35. https://github.com/simeji/winresizer
