@@ -33,9 +33,9 @@ call plug#begin('~/.local/share/nvim/plugged')
 
     Plug 'omnisharp/omnisharp-vim', { 'do': 'cd server && xbuild' }
     Plug 'OrangeT/vim-csharp'
-    Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
-    Plug 'dimixar/deoplete-omnisharp'
-    Plug 'ervandew/supertab'
+    "Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
+    "Plug 'dimixar/deoplete-omnisharp'
+    "Plug 'ervandew/supertab'
     Plug 'idanarye/vim-merginal'
     Plug 'randomize/switch.vim'
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -44,10 +44,13 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'hoelzro/vim-split-navigate'
     Plug 'ryanoasis/vim-devicons'
     Plug 'w0rp/ale'
-    Plug 'zchee/deoplete-jedi'
+    "Plug 'zchee/deoplete-jedi'
 
     Plug 'simeji/winresizer'
 
+    Plug 'roxma/nvim-completion-manager'
+    Plug 'roxma/python-support.nvim'
+    Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
 call plug#end()
 
 
@@ -186,19 +189,32 @@ let g:OmniSharp_want_snippet=1
 set splitbelow
 set completeopt=longest,menuone
 
-" deoplete config
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#max_menu_width = 1000
-let g:deoplete#auto_complete_start_length = 1
-call deoplete#custom#set('ultisnips', 'matchers', ['matcher_fuzzy'])
-call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
-autocmd CompleteDone * pclose!
+"" deoplete config
+"let g:deoplete#enable_at_startup = 1
+"let g:deoplete#max_menu_width = 1000
+"let g:deoplete#auto_complete_start_length = 1
+"call deoplete#custom#set('ultisnips', 'matchers', ['matcher_fuzzy'])
+"call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
+"autocmd CompleteDone * pclose!
 
-"Super tab settings - uncomment the next 4 lines
-let g:SuperTabDefaultCompletionType = 'context'
-let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
-let g:SuperTabDefaultCompletionTypeDiscovery = ["&omnifunc:<c-x><c-o>","&completefunc:<c-x><c-n>"]
-let g:SuperTabClosePreviewOnPopupClose = 1
+""Super tab settings - uncomment the next 4 lines
+"let g:SuperTabDefaultCompletionType = 'context'
+"let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
+"let g:SuperTabDefaultCompletionTypeDiscovery = ["&omnifunc:<c-x><c-o>","&completefunc:<c-x><c-n>"]
+"let g:SuperTabClosePreviewOnPopupClose = 1
+
+" NCM configs
+inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" python support config
+" for python completions
+let g:python_support_python3_requirements = add(get(g:,'python_support_python3_requirements',[]),'jedi')
+" language specific completions on markdown file
+let g:python_support_python3_requirements = add(get(g:,'python_support_python3_requirements',[]),'mistune')
+
+" LanguageClient config
 
 
 " *********************************
