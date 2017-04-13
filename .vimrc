@@ -47,6 +47,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'zchee/deoplete-jedi'
 
     Plug 'simeji/winresizer'
+    Plug 'hecal3/vim-leader-guide'
 
 call plug#end()
 
@@ -210,49 +211,95 @@ augroup csharp_dimixar
     autocmd FileType cs autocmd BufWritePre <buffer> %s/\s\+$//e
 augroup END
 
-" *********************************
+" leader guide config
+let g:lmap =  {}
+
+" ********************************
 " All mappings start here
 let mapleader = ' '
 
+"leader guide startup
+nnoremap <silent> <leader> :LeaderGuide ' '<CR>
+vnoremap <silent> <leader> :LeaderGuideVisual ' '<CR>
+nnoremap <silent> <leader> :LeaderGuideD g:lmap<CR>
+
 " Easy copy/paste to/from system clipboard
-nnoremap <leader>p "+p
-vnoremap <leader>y "+y
+let g:lmap.p = ['\"+p', 'Paste from system clipboard']
+nnoremap <silent> <leader>p "+p
+vnoremap <silent> <leader>y "+y
+let g:lmap.y = ['\"+y', 'Copy to system clipboard']
+
 
 " Folding shortcuts
 " Toggle fold
-nmap <leader>eft za
+nmap <silent> <leader>eft za
 " Open All folds
-nmap <leader>efO zR
+nmap <silent> <leader>efO zR
 " Close all folds
-nmap <leader>efC zM
+nmap <silent> <leader>efC zM
+
+let g:lmap.e = {'name' : 'Extras'}
+let g:lmap.e.f = {'name' : 'Folds'}
+let g:lmap.e.f.t = ['za', 'Toggle fold']
+let g:lmap.e.f.O = ['zR', 'Open all folds']
+let g:lmap.e.f.C = ['zM', 'Close all folds']
 
 " file shortcuts (like spacemacs)
-nmap <leader>fs :w<CR>:echo "saved file!!!"<CR>
+nmap <silent> <leader>fs :w<CR>:echo "saved file!!!"<CR>
+
+let g:lmap.f = {'name': 'Files'}
+let g:lmap.f.s = ['w', 'Save current file']
 
 " buffer shortcuts
-nmap <leader>bd :bd<CR>:echo "Buffer Killed!!!"<CR>
-nmap <leader>bdd :bd!<CR>:echo "Buffer Murdered!!!"<CR>
+nmap <silent> <leader>bd :bd<CR>:echo "Buffer Killed!!!"<CR>
+nmap <silent> <leader>bdd :bd!<CR>:echo "Buffer Murdered!!!"<CR>
 " startify buffer shortcut
-nmap <leader>bs :Startify<CR>
+nmap <silent> <leader>bs :Startify<CR>
+
+let g:lmap.b = {'name': 'Buffer'}
+let g:lmap.b.d = ['bd', 'Delete buffer']
+let g:lmap.b.D = ['bd!', 'Delete buffer forced']
+let g:lmap.b.s = ['Startify', 'Go to Startify']
 
 " window shortcuts
-nmap <leader>wj <C-w>j
-nmap <leader>wk <C-w>k
-nmap <leader>wh <C-w>h
-nmap <leader>wl <C-w>l
-nmap <leader>wJ <C-w>J
-nmap <leader>wK <C-w>K
-nmap <leader>wH <C-w>H
-nmap <leader>wL <C-w>L
-nmap <leader>w/ <C-w>v
-nmap <leader>ws <C-w>s
-nmap <leader>wd :hide<CR>
-nmap <leader>wtt :NERDTreeToggle<CR>
-nmap <leader>wtc :TagbarToggle<CR>
-nmap <leader>wu :UndotreeToggle<CR>
-nmap <leader>wn <C-w>w
-nmap <leader>qq :qa<CR>
-nmap <leader>qQ :qa!<CR>
+nmap <silent> <leader>wj <C-w>j
+nmap <silent> <leader>wk <C-w>k
+nmap <silent> <leader>wh <C-w>h
+nmap <silent> <leader>wl <C-w>l
+nmap <silent> <leader>wJ <C-w>J
+nmap <silent> <leader>wK <C-w>K
+nmap <silent> <leader>wH <C-w>H
+nmap <silent> <leader>wL <C-w>L
+nmap <silent> <leader>wv <C-w>v
+nmap <silent> <leader>ws <C-w>s
+nmap <silent> <leader>wd :hide<CR>
+nmap <silent> <leader>wtt :NERDTreeToggle<CR>
+nmap <silent> <leader>wtc :TagbarToggle<CR>
+nmap <silent> <leader>wu :UndotreeToggle<CR>
+nmap <silent> <leader>wn <C-w>w
+nmap <silent> <leader>qq :qa<CR>
+nmap <silent> <leader>qQ :qa!<CR>
+
+let g:lmap.w = {'name': 'Window'}
+let g:lmap.w.j = ['<C-w>j', 'Go down']
+let g:lmap.w.k = ['<C-w>k', 'Go up']
+let g:lmap.w.h = ['<C-w>h', 'Go left']
+let g:lmap.w.l = ['<C-w>l', 'Go right']
+let g:lmap.w.J = ['<C-w>J', 'Go lowest']
+let g:lmap.w.K = ['<C-w>K', 'Go highest']
+let g:lmap.w.H = ['<C-w>H', 'Go left most']
+let g:lmap.w.L = ['<C-w>L', 'Go right most']
+let g:lmap.w.v = ['<C-w>v', 'Split vertical']
+let g:lmap.w.s = ['<C-w>s', 'Split horizontal']
+let g:lmap.w.d = ['hide', 'Destroy window']
+let g:lmap.w.t = {'name': 'Toggles'}
+let g:lmap.w.t.t = ['NERDTreeToggle', 'NERDTree']
+let g:lmap.w.t.c = ['TagbarToggle', 'Tagbar']
+let g:lmap.w.t.u = ['UndotreeToggle', 'Undotree']
+let g:lmap.w.n = ['<C-w>w', 'Move to window number']
+let g:lmap.q = {'name': 'Quit vim'}
+let g:lmap.q.q = ['qa', 'Normal']
+let g:lmap.q.Q = ['qa!', 'Forced']
 
 " fzf mappings
 nmap <leader>uff :GFiles<CR>
@@ -263,6 +310,17 @@ nmap <leader>uft :Tags<CR>
 nmap <leader>ufl :BLines<CR>
 nmap <leader>ufs :Snippets<CR>
 
+let g:lmap.u = {'name': 'Unified search'}
+let g:lmap.u.f = {'name': 'fzf'}
+let g:lmap.u.f.f = ['GFiles', 'Search files']
+let g:lmap.u.f.b = ['Buffers', 'Search buffers']
+let g:lmap.u.f.w = ['Windows', 'Search windows']
+let g:lmap.u.f.o = ['BTags', 'Search buffer tags']
+let g:lmap.u.f.t = ['Tags', 'Search project tags']
+let g:lmap.u.f.l = ['BLines', 'Search buffer lines']
+let g:lmap.u.f.s = ['Snippets', 'Search Snippets']
+
+
 " Git mappings
 nmap <leader>gs :Gstatus<CR>
 nmap <leader>gc :Gcommit<CR>
@@ -271,12 +329,25 @@ nmap <leader>gP :Gpull<CR>
 nmap <leader>gl :GV<CR>
 nmap <leader>gb :MerginalToggle<CR>
 
+let g:lmap.g = {'name': 'Git'}
+let g:lmap.g.s = ['Gstatus', 'Status']
+let g:lmap.g.c = ['Gcommit', 'Commit']
+let g:lmap.g.p = ['Gpush', 'Push']
+let g:lmap.g.P = ['Gpull', 'Pull']
+let g:lmap.g.l = ['GV', 'Log Tree']
+let g:lmap.g.b = ['MerginalToggle', 'Merginal toggle']
+
 " Vim swoop config
 let g:swoopUseDefaultKeyMap = 0
 nmap <leader>ss :call Swoop()<CR>
 vmap <leader>ss :call SwoopSelection()<CR>
-nmap <leader>ssm :call SwoopMulti()<CR>
-vmap <leader>ssm :call SwoopMultiSelection()<CR>
+nmap <leader>sS :call SwoopMulti()<CR>
+vmap <leader>sS :call SwoopMultiSelection()<CR>
+
+let g:lmap.s = {'name': 'Swoop'}
+let g:lmap.s.s = ['call Swoop()', 'Current buffer']
+let g:lmap.s.S = ['call SwoopMulti()', 'All buffers']
+
 
 " Omnisharp mappings
 augroup omnisharp_commands
@@ -288,7 +359,6 @@ augroup omnisharp_commands
     " Synchronous build (blocks Vim)
     "autocmd FileType cs nnoremap <F5> :wa!<cr>:OmniSharpBuild<cr>
     " Builds can also run asynchronously with vim-dispatch installed
-    autocmd FileType cs nnoremap <leader>mb :wa!<cr>:OmniSharpBuildAsync<cr>
     " automatic syntax check on events (TextChanged requires Vim 7.4)
     "autocmd BufEnter,TextChanged,InsertLeave *.cs Neomake
 
@@ -300,32 +370,54 @@ augroup omnisharp_commands
 
     "The following commands are contextual, based on the current cursor position.
 
-    autocmd FileType cs nnoremap <leader>mgd :OmniSharpGotoDefinition<cr>
+    autocmd FileType cs nnoremap <leader>mb :wa!<cr>:OmniSharpBuildAsync<cr>
+    autocmd FileType cs nnoremap <leader>mg :OmniSharpGotoDefinition<cr>
+    autocmd FileType cs nnoremap <leader>mt :OmniSharpTypeLookup<cr>
+    autocmd FileType cs nnoremap <leader>mr :OmniSharpRename<CR>
+    autocmd FileType cs nnoremap <leader>mc :OmniSharpCodeFormat<CR>
+    autocmd FileType cs nnoremap <leader>md :OmniSharpDocumentation<cr>
     autocmd FileType cs nnoremap <leader>mfi :OmniSharpFindImplementations<cr>
     autocmd FileType cs nnoremap <leader>mft :OmniSharpFindType<cr>
     autocmd FileType cs nnoremap <leader>mfs :OmniSharpFindSymbol<cr>
     autocmd FileType cs nnoremap <leader>mfu :OmniSharpFindUsages<cr>
-    "finds members in the current buffer
     autocmd FileType cs nnoremap <leader>mfm :OmniSharpFindMembers<cr>
-    " cursor can be anywhere on the line containing an issue
-    autocmd FileType cs nnoremap <leader>mx  :OmniSharpFixIssue<cr>
-    autocmd FileType cs nnoremap <leader>mfx :OmniSharpFixUsings<cr>
-    autocmd FileType cs nnoremap <leader>mtt :OmniSharpTypeLookup<cr>
-    autocmd FileType cs nnoremap <leader>mdc :OmniSharpDocumentation<cr>
+    autocmd FileType cs nnoremap <leader>mss :OmniSharpStartServer<cr>
+    autocmd FileType cs nnoremap <leader>msp :OmniSharpStopServer<cr>
+    autocmd FileType cs nnoremap <leader>mxi  :OmniSharpFixIssue<cr>
+    autocmd FileType cs nnoremap <leader>mxu :OmniSharpFixUsings<cr>
+
+    let g:lmap.m = {'name': 'OmniSharp'}
+    let g:lmap.m.b = ['OmniSharpBuildAsync', 'Build']
+    let g:lmap.m.g = ['OmniSharpGotoDefinition', 'Go to definition']
+    let g:lmap.m.t = ['OmniSharpTypeLookup', 'Lookup type']
+    let g:lmap.m.r = ['OmniSharpRename', 'Rename']
+    let g:lmap.m.c = ['OmniSharpCodeFormat', 'Code format']
+    let g:lmap.m.d = ['OmniSharpDocumentation', 'Documentation']
+    let g:lmap.m.f = {'name': 'Find'}
+    let g:lmap.m.f.i = ['OmniSharpFindImplementations', 'Implementation']
+    let g:lmap.m.f.t = ['OmniSharpFindType', 'Type']
+    let g:lmap.m.f.s = ['OmniSharpFindSymbol', 'Symbol']
+    let g:lmap.m.f.u = ['OmniSharpFindUsages', 'Usages']
+    let g:lmap.m.f.m = ['OmniSharpFindMembers', 'Members']
+    let g:lmap.m.s = {'name': 'Server'}
+    let g:lmap.m.s.s = [':OmniSharpStartServer', 'Start']
+    let g:lmap.m.s.p = [':OmniSharpStopServer', 'Stop']
+    let g:lmap.m.x = {'name': 'Fix'}
+    let g:lmap.m.x.i = [':OmniSharpFixIssue', 'Issue']
+    let g:lmap.m.x.u = [':OmniSharpFixUsings', 'Usings']
+
     "navigate up by method/property/field
     autocmd FileType cs nnoremap <C-K> :OmniSharpNavigateUp<cr>
     "navigate down by method/property/field
     autocmd FileType cs nnoremap <C-J> :OmniSharpNavigateDown<cr>
 
-    autocmd FileType cs nnoremap <leader>mrr :OmniSharpRename<CR>
-    autocmd FileType cs nnoremap <leader>mcf :OmniSharpCodeFormat<CR>
-    autocmd FileType cs nnoremap <leader>mss :OmniSharpStartServer<cr>
-    autocmd FileType cs nnoremap <leader>msp :OmniSharpStopServer<cr>
 
 augroup END
 
 " Switch mapping
 nmap <leader>sw :Switch<CR>
+
+let g:lmap.s.w = ['Switch', 'Switch key-words']
 
 "Ultisnips mappings
 let g:UltiSnipsExpandTrigger="<c-x><c-x>"
