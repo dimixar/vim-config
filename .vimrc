@@ -182,6 +182,7 @@ if has("persistent_undo")
 endif
 
 " OmniSharp config
+"let g:OmniSharp_server_type = 'roslyn'
 let g:OmniSharp_selector_ui = 'fzf'
 let g:OmniSharp_want_snippet=1
 set splitbelow
@@ -213,6 +214,7 @@ augroup END
 
 " leader guide config
 let g:lmap =  {}
+call leaderGuide#register_prefix_descriptions(' ', "g:lmap")
 
 " ********************************
 " All mappings start here
@@ -221,7 +223,7 @@ let mapleader = ' '
 "leader guide startup
 nnoremap <silent> <leader> :LeaderGuide ' '<CR>
 vnoremap <silent> <leader> :LeaderGuideVisual ' '<CR>
-nnoremap <silent> <leader> :LeaderGuideD g:lmap<CR>
+"nnoremap <silent> <leader> :LeaderGuideD g:lmap<CR>
 
 " Easy copy/paste to/from system clipboard
 let g:lmap.p = ['\"+p', 'Paste from system clipboard']
@@ -386,25 +388,27 @@ augroup omnisharp_commands
     autocmd FileType cs nnoremap <leader>mxi  :OmniSharpFixIssue<cr>
     autocmd FileType cs nnoremap <leader>mxu :OmniSharpFixUsings<cr>
 
-    let g:lmap.m = {'name': 'OmniSharp'}
-    let g:lmap.m.b = ['OmniSharpBuildAsync', 'Build']
-    let g:lmap.m.g = ['OmniSharpGotoDefinition', 'Go to definition']
-    let g:lmap.m.t = ['OmniSharpTypeLookup', 'Lookup type']
-    let g:lmap.m.r = ['OmniSharpRename', 'Rename']
-    let g:lmap.m.c = ['OmniSharpCodeFormat', 'Code format']
-    let g:lmap.m.d = ['OmniSharpDocumentation', 'Documentation']
-    let g:lmap.m.f = {'name': 'Find'}
-    let g:lmap.m.f.i = ['OmniSharpFindImplementations', 'Implementation']
-    let g:lmap.m.f.t = ['OmniSharpFindType', 'Type']
-    let g:lmap.m.f.s = ['OmniSharpFindSymbol', 'Symbol']
-    let g:lmap.m.f.u = ['OmniSharpFindUsages', 'Usages']
-    let g:lmap.m.f.m = ['OmniSharpFindMembers', 'Members']
-    let g:lmap.m.s = {'name': 'Server'}
-    let g:lmap.m.s.s = [':OmniSharpStartServer', 'Start']
-    let g:lmap.m.s.p = [':OmniSharpStopServer', 'Stop']
-    let g:lmap.m.x = {'name': 'Fix'}
-    let g:lmap.m.x.i = [':OmniSharpFixIssue', 'Issue']
-    let g:lmap.m.x.u = [':OmniSharpFixUsings', 'Usings']
+    let g:mmap = {'name': 'OmniSharp'}
+    let g:mmap.b = ['OmniSharpBuildAsync', 'Build']
+    let g:mmap.g = ['OmniSharpGotoDefinition', 'Go to definition']
+    let g:mmap.t = ['OmniSharpTypeLookup', 'Lookup type']
+    let g:mmap.r = ['OmniSharpRename', 'Rename']
+    let g:mmap.c = ['OmniSharpCodeFormat', 'Code format']
+    let g:mmap.d = ['OmniSharpDocumentation', 'Documentation']
+    let g:mmap.f = {'name': 'Find'}
+    let g:mmap.f.i = ['OmniSharpFindImplementations', 'Implementation']
+    let g:mmap.f.t = ['OmniSharpFindType', 'Type']
+    let g:mmap.f.s = ['OmniSharpFindSymbol', 'Symbol']
+    let g:mmap.f.u = ['OmniSharpFindUsages', 'Usages']
+    let g:mmap.f.m = ['OmniSharpFindMembers', 'Members']
+    let g:mmap.s = {'name': 'Server'}
+    let g:mmap.s.s = [':OmniSharpStartServer', 'Start']
+    let g:mmap.s.p = [':OmniSharpStopServer', 'Stop']
+    let g:mmap.x = {'name': 'Fix'}
+    let g:mmap.x.i = [':OmniSharpFixIssue', 'Issue']
+    let g:mmap.x.u = [':OmniSharpFixUsings', 'Usings']
+
+    autocmd FileType cs let g:lmap['m'] = g:mmap
 
     "navigate up by method/property/field
     autocmd FileType cs nnoremap <C-K> :OmniSharpNavigateUp<cr>
