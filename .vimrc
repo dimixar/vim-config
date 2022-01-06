@@ -192,8 +192,8 @@ set completeopt=longest,menuone
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#max_menu_width = 1000
 let g:deoplete#auto_complete_start_length = 1
-call deoplete#custom#set('ultisnips', 'matchers', ['matcher_fuzzy'])
-call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
+call deoplete#custom#source('ultisnips', 'matchers', ['matcher_fuzzy'])
+call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])
 autocmd CompleteDone * pclose!
 
 "Super tab settings - uncomment the next 4 lines
